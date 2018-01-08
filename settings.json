@@ -10,6 +10,7 @@
   "containerCheck": {
     "ovs": "mq_ovs_running",
     "vlan": "mq_vlan_running",
-    "swarm-agent": "mq_swarm-agent_running"
+    "swarm-agent": "mq_swarm-agent_running",
+    "ark-schedule": "mq_ark-schedule_running"
   }
 }
