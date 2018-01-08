@@ -1,0 +1,15 @@
+{
+  "procCheck": {
+    "DragoonAgent": "mq_Dragoon_health",
+    "com.aliyun.openservices.ons.housekeeping.HKAgentStartup": "housekeeping"
+  },
+  "portCheck": {
+    "3376": "mq_swarm-manager_3376",
+    "62626": "mq_dcbs_62626"
+  },
+  "containerCheck": {
+    "ovs": "mq_ovs_running",
+    "vlan": "mq_vlan_running",
+    "swarm-agent": "mq_swarm-agent_running"
+  }
+}
