@@ -161,7 +161,7 @@ def portStatus(statusList, settings, ip, ports):
         s.settimeout(1)
 
         try:
-            s.connect((ip, int(port)))
+            s.connect(('localhost', int(port)))
             s.close()
             value = 0
         except socket.timeout as e:
