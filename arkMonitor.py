@@ -18,25 +18,16 @@ class Metric(object):
     def __init__(self, host, key, value, clock=None):
 
         self.host = host
-
         self.key = key
-
         self.value = value
-
         self.clock = clock
 
     def __repr__(self):
-
         result = None
-
         if self.clock is None:
-
             result = 'Metric(%r, %r, %r)' % (self.host, self.key, self.value)
-
         else:
-
             result = 'Metric(%r, %r, %r, %r)' % (self.host, self.key, self.value, self.clock)
-
         return result
 
 
