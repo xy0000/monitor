@@ -38,7 +38,7 @@ class GetMysqlStatus():
     def __init__(self):
         self.result = ''
         self.each_result = ''
-        self.SlaveStatus = ''
+        self.SubordinateStatus = ''
         self.VariableInfo = ''
         self.InnodbInfo = ''
         self.ProcesslistInfo = ''
@@ -69,8 +69,8 @@ class GetMysqlStatus():
             c.execute("""show global status """)
             self.result = c.fetchall()
 #            return self.result
-            c.execute("""show slave status ; """)
-            self.SlaveStatus = c.fetchall()
+            c.execute("""show subordinate status ; """)
+            self.SubordinateStatus = c.fetchall()
             c.execute("""show global variables like 'max%connections%' ; """)
             self.VariableInfo = c.fetchall()
             #c.execute("""show engine innodb status ;  """)
@@ -87,10 +87,10 @@ class GetMysqlStatus():
             a = []
             for i in self.result:
               a.append(Metric(args.mysql_hostname, ('MySQL.%s' % i['Variable_name']), '%s' % i['Value']))
-            for j in self.SlaveStatus:
-              #for  slavekey in j.keys():
-              for  slavekey in slaveitem:
-                a.append(Metric(args.mysql_hostname, ('MySQL.%s' % slavekey), '%s' % j[slavekey]))
+            for j in self.SubordinateStatus:
+              #for  subordinatekey in j.keys():
+              for  subordinatekey in subordinateitem:
+                a.append(Metric(args.mysql_hostname, ('MySQL.%s' % subordinatekey), '%s' % j[subordinatekey]))
 
             for v in self.VariableInfo:
               a.append(Metric(args.mysql_hostname, ('MySQL.%s' % v['Variable_name']), '%s' % v['Value']))
@@ -350,7 +350,7 @@ class ErrorOut():
 
 class ErrorLogCheck(object):
 
-    def __init__(self, errlogfile,logfilestatusfile,newlogfile,excepruledic,errkeys,zbx_item,isHA=0,hamonitorstatusfile=r'/mysql/master_failover/log/monitor_status_message',hamonitortime=500):
+    def __init__(self, errlogfile,logfilestatusfile,newlogfile,excepruledic,errkeys,zbx_item,isHA=0,hamonitorstatusfile=r'/mysql/main_failover/log/monitor_status_message',hamonitortime=500):
         self.logfilename = errlogfile
         self.logfilestatusfile = logfilestatusfile
         self.newlogfile = newlogfile
@@ -741,7 +741,7 @@ if __name__ == "__main__":
 
      gl_item_checked_lasttime_status=r'/mysql/scripts/zabbix/log/.gl_item_checked_lasttime_status'
 
-     slaveitem = ['Seconds_Behind_Master','Slave_IO_Running','Slave_SQL_Running','Exec_Master_Log_Pos' ]
+     subordinateitem = ['Seconds_Behind_Main','Subordinate_IO_Running','Subordinate_SQL_Running','Exec_Main_Log_Pos' ]
 
      randvalue = random.randint(0,100)
      # if  not exits table, pls use below sql  for create it.
